@@ -7,37 +7,8 @@ public class pathtracing {
 	static Scanner scan = new Scanner(System.in);
 	static ArrayList<String> map = new ArrayList<String>();
 	public static void main(String[] args) {
-		while(scan.hasNext()){
-			String str = scan.next();
-			if(str.equals("stop"))
-				break;
-			directions.add(str);
-		}
-		/*String[] which = {"up", "left", "down", "right"};
-		for(int i = 0; i < 1234; i++){
-			directions.add(which[getRandom(0, 4)]);
-		}
-		for(int i = 0; i < directions.size() - 1; i++){
-			String first = directions.get(i);
-			String second = directions.get(i + 1);
-			if(first.equals("up") && second.equals("down")){
-				directions.remove(i + 1);
-				i--;
-			}
-			else if(first.equals("down") && second.equals("up")){
-				directions.remove(i + 1);
-				i--;
-			}
-			else if(first.equals("left") && second.equals("right")){
-				directions.remove(i + 1);
-				i--;
-			}
-			else if(first.equals("right") && second.equals("left")){
-				directions.remove(i + 1);
-				i--;
-			}
-		}
-		System.out.println(directions);*/
+		while(scan.hasNext())
+			directions.add(scan.next());
 		instructions = directions.toArray(new String[directions.size()]);
 		int h = 0;
 		int w = 0;
