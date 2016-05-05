@@ -37,11 +37,11 @@ public class pathtracing {
 				}
 			}
 			else if(follow.equals("right")){
-                w++;
-                if(w > map.get(h).length()){
-                    fixRight();
-                }
-            }
+				w++;
+				if(w > map.get(h).length()){
+					fixRight();
+				}
+			}
 			if(h >= map.size())
 				map.add(map.get(0).replaceAll("[^ ]", " "));
 			if(w >= map.get(h).length())
