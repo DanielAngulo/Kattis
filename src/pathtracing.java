@@ -1,17 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class pathtracing {
-
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		ArrayList<String> directions = new ArrayList<String>();
-		while(scan.hasNext()){
-			String str = scan.next();
-			if(str.equals("stop"))
-				break;
-			else
-				directions.add(str);
-		}
+		while(scan.hasNext())
+			directions.add(scan.next());
 		ArrayList<String> board = new ArrayList<String>();
 		for(int i = 0; i < 10; i++)
 			board.add(" ");
