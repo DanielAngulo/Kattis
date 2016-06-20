@@ -9,11 +9,12 @@ public class howmanydigits {
 		double logFacN = 0;
 		factorial[0] = 1;
 		factorial[1] = 1;
-	    for(int i = 2; i < 1000001; i++)
-	    {
-	        logFacN += Math.log10(i);
-	        factorial[i] = logFacN;
-	    }
+		for(int i = 2; i < 1000001; i++)
+		{
+			logFacN += Math.log10(i);
+	        	factorial[i] = logFacN;
+			
+		}
 		while(scan.hasNextInt())
 		{
 			int n = scan.nextInt();
