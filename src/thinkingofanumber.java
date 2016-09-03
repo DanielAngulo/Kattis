@@ -1,3 +1,5 @@
+//Has been updated on kattis, solution currently exceeds time limit
+
 import java.util.Scanner;
 import java.util.ArrayList;
 public class thinkingofanumber
