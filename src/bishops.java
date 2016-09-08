@@ -10,7 +10,7 @@ public class bishops
             if(n <= 1)
                 System.out.println(n);
             else
-                System.out.println((2 * n ) - 1);
+                System.out.println((2 * n ) - 2);
         }
         scan.close();
     }
