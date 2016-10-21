@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class Bijele {
+public class bijele {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
