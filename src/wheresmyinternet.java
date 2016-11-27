@@ -1,10 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
-
-/**
- * Created by Danny on 11/27/2016.
- */
 public class wheresmyinternet
 {
     static ArrayList<House> cables = new ArrayList<House>();
