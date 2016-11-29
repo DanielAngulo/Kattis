@@ -1,132 +1,83 @@
-//Has been updated on kattis, solution currently exceeds time limit
-
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Collections;
+
 public class thinkingofanumber
 {
     public static void main(String[] args)
     {
-        Scanner scan = new Scanner(System.in);
-        while(true)
+        Kattio scan = new Kattio(System.in);
+        while (true)
         {
-            int conditions = scan.nextInt();
-            if(conditions == 0) break;
-            Number number = new Number();
-            for(int i = 0; i < conditions; i++)
+            int conditions = scan.getInt();
+            if (conditions == 0) break;
+            ArrayList<Integer> divisible = new ArrayList<Integer>(conditions);
+            int start = 0, end = 0;
+            boolean startBoolean = false, endBoolean = false;
+            for (int i = 0; i < conditions; i++)
             {
-                String first = scan.next();
-                scan.next();
-                if(first.equals("less"))
-                    number.setLowerBound(scan.nextInt());
-                else if(first.equals("greater"))
-                    number.setHigherBound(scan.nextInt());
+                String first = scan.getWord();
+                scan.getWord();
+                int next = scan.getInt();
+                if (first.equals("less"))
+                {
+                    if (endBoolean)
+                        end = Math.min(end, next);
+                    else
+                        end = next;
+                    endBoolean = true;
+                }
+                else if (first.equals("greater"))
+                {
+                    next++;
+                    if (startBoolean)
+                        start = Math.max(start, next);
+                    else
+                        start = next;
+                    startBoolean = true;
+                }
                 else
-                    number.addDivisible(scan.nextInt());
+                    divisible.add(next);
             }
-            System.out.println(number.printNumbers());
+            Collections.sort(divisible);
+            ArrayList<Integer> remove = new ArrayList<Integer>();
+            for (int i = 0; i < divisible.size() - 1; i++)
+            {
+                for (int x = i + 1; x < divisible.size(); x++)
+                {
+                    if (divisible.get(x) % divisible.get(i) == 0)
+                        remove.add(divisible.get(i));
+                }
+            }
+            for (int i : remove)
+                divisible.remove(new Integer(i));
+            StringBuilder result = new StringBuilder("");
+            if (!endBoolean)
+                System.out.println("infinite");
+            else if((startBoolean && endBoolean) && (start >= end))
+                System.out.println("none");
+            else
+            {
+                if (!startBoolean)
+                    start = 1;
+                for (int i = start; i < end; i++)
+                {
+                    boolean add = true;
+                    check:
+                    for (int x : divisible)
+                    {
+                        if (i % x != 0)
+                        {
+                            add = false;
+                            break check;
+                        }
+                    }
+                    if (add)
+                        result.append(i + " ");
+                }
+                String print = result.toString().trim();
+                System.out.println(print.length() == 0 ? "none" : print);
+            }
         }
         scan.close();
-    }
-}
-
-class Number
-{
-    int lowerThan = 0;
-    boolean changedLower = false;
-    int greaterThan = 0;
-    boolean changedGreater = false;
-    ArrayList<Integer> divisibleBy = new ArrayList<Integer>();
-    int size = 0;
-
-    public void setLowerBound(int n)
-    {
-        if(!changedLower)
-        {
-            lowerThan = n;
-            changedLower = true;
-        }
-        else
-        {
-            lowerThan = Math.min(lowerThan, n);
-            changedLower = true;
-        }
-    }
-
-    public void setHigherBound(int n)
-    {
-        if(n == 0)
-            return;
-        if(!changedGreater)
-        {
-            greaterThan = n;
-            changedGreater = true;
-        }
-        else
-        {
-            greaterThan = Math.max(greaterThan, n);
-            changedGreater = true;
-        }
-    }
-
-    public void addDivisible(int n)
-    {
-        if(n != 1)
-        {
-            divisibleBy.add(n);
-            size++;
-        }
-    }
-
-    public String checkDivisible(int n)
-    {
-        boolean can = true;
-        if(size == 0)
-            return n + " ";
-        else
-        {
-            for (int i : divisibleBy)
-            {
-                if (!can)
-                    break;
-                if (n % i != 0)
-                    can = false;
-            }
-        }
-        return(can? (n + " "): "");
-    }
-
-    public boolean check()
-    {
-        if(changedGreater && changedLower)
-            return (greaterThan >= lowerThan);
-        return false;
-    }
-
-    public String printNumbers()
-    {
-        String print = "";
-        if(check())
-            return "none";
-        if(changedLower)
-        {
-            print = getNumbers();
-            return returnPrint(print);
-        }
-        return "infinite";
-    }
-
-    public String getNumbers()
-    {
-        String print = "";
-        for(int i = greaterThan + 1; i < lowerThan; i++)
-            print += checkDivisible(i);
-        return print.trim();
-    }
-
-    public String returnPrint(String print)
-    {
-        if(print.length() == 0)
-            return "none";
-        return print;
     }
 }
