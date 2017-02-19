@@ -1,8 +1,4 @@
 import java.util.Scanner;
-
-/**
- * Created by Danny on 2/19/2017.
- */
 public class lekitra
 {
     public static void main(String[] args)
