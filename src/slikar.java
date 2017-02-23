@@ -41,9 +41,6 @@ public class slikar
         }
         maps.add(map);
         expand(0);
-        for(int i= 0; i < 1000; i++)
-
-            expand(maps.size() - 1);
         for(int i = 0; i < maps.size(); i++)
         {
             maps.get(i)[end.x][end.y] = '.';
@@ -85,54 +82,71 @@ public class slikar
     {
         char[][] current = maps.get(index);
         char[][] copy = new char[rows][cols];
-        for(int i = 0; i < rows; i++)
+        for (int i = 0; i < rows; i++)
         {
-            for(int x = 0; x < cols; x++)
+            for (int x = 0; x < cols; x++)
             {
                 copy[i][x] = current[i][x];
             }
         }
-        for(int i = 0; i < rows; i++)
+        for (int i = 0; i < rows; i++)
         {
-            for(int x = 0; x < cols; x++)
+            for (int x = 0; x < cols; x++)
             {
-                if(current[i][x] == '*')
+                if (current[i][x] == '*')
                 {
-                    if(i - 1 >= 0 && current[i - 1][x] == '.')
+                    if (i - 1 >= 0 && current[i - 1][x] == '.')
                     {
                         copy[i - 1][x] = '*';
                     }
-                    if(i + 1 < rows && current[i + 1][x] == '.')
+                    if (i + 1 < rows && current[i + 1][x] == '.')
                     {
                         copy[i + 1][x] = '*';
                     }
-                    if(x - 1 >= 0 && current[i][x - 1] == '.')
+                    if (x - 1 >= 0 && current[i][x - 1] == '.')
                     {
                         copy[i][x - 1] = '*';
                     }
-                    if(x + 1 < cols && current[i][x + 1] == '.')
+                    if (x + 1 < cols && current[i][x + 1] == '.')
                     {
                         copy[i][x + 1] = '*';
                     }
                 }
             }
         }
-        boolean different = false;
+        boolean keepExpanding = false;
         check:
         for(int i = 0; i < rows; i++)
         {
             for(int x = 0; x < cols; x++)
             {
-                if(current[i][x] != copy[i][x])
+                if(copy[i][x] == '*')
                 {
-                    different = true;
-                    break check;
+                    if (i - 1 >= 0 && current[i - 1][x] == '.')
+                    {
+                        keepExpanding = true;
+                        break check;
+                    }
+                    if (i + 1 < rows && current[i + 1][x] == '.')
+                    {
+                        keepExpanding = true;
+                        break check;
+                    }
+                    if (x - 1 >= 0 && current[i][x - 1] == '.')
+                    {
+                        keepExpanding = true;
+                        break check;
+                    }
+                    if (x + 1 < cols && current[i][x + 1] == '.')
+                    {
+                        keepExpanding = true;
+                        break check;
+                    }
                 }
             }
-            break check;
         }
         maps.add(copy);
-        if(different)
+        if (keepExpanding)
             expand(index + 1);
     }
 }
