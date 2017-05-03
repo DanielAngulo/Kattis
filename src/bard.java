@@ -14,9 +14,7 @@ public class bard
             int amount = scan.nextInt();
             int[] villagersPresent = new int[amount];
             for(int j = 0; j < amount; j++)
-            {
                 villagersPresent[j] = scan.nextInt();
-            }
             Arrays.sort(villagersPresent);
             if(villagersPresent[0] == 1)
             {
@@ -24,13 +22,12 @@ public class bard
                 {
                     if(!villagersAndSongs.containsKey(villagersPresent[x]))
                     {
-                        villagersAndSongs.put(villagersPresent[x], new HashSet<Integer>());
-                        villagersAndSongs.get(villagersPresent[x]).add(currentSong);
+                        HashSet<Integer> temp = new HashSet<>();
+                        temp.add(currentSong);
+                        villagersAndSongs.put(villagersPresent[x], temp);
                     }
                     else
-                    {
                         villagersAndSongs.get(villagersPresent[x]).add(currentSong);
-                    }
                 }
                 currentSong++;
             }
@@ -44,14 +41,7 @@ public class bard
                 }
                 for(int x = 0; x < amount; x++)
                 {
-                    if(villagersAndSongs.containsKey(villagersPresent[x]))
-                    {
                         villagersAndSongs.put(villagersPresent[x], new HashSet<>(masterSet));
-                    }
-                    else
-                    {
-                        villagersAndSongs.put(villagersPresent[x], new HashSet<>(masterSet));
-                    }
                 }
             }
         }
